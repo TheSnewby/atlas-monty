@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	int i;
 	int line_number;
 	int fd;
-	char *buf[256] = NULL;
+	char *buf[256];
 	int read_return;
 
 	if (argc == 1 || argc > 2) /* 0 or 1 for no arguments? */
@@ -22,7 +22,10 @@ int main(int argc, char *argv[])
 
 	if (fd == -1)
 		return (EXIT_FAILURE);
-	read_return = read(fd, buf, sizeof(buf));
+	while(read_return = read(fd, buf, sizeof(buf)) > 0)
+	{
+		//parse buf
+	}
 
 }
 

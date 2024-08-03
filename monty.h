@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 char **tokens = NULL; /* 0: command, 1: val or \n, 2: \n or \0 */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -31,12 +32,13 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-        void (*f)(stack_t **stack, int n);
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-stack_t push(stack_t *, int);
-void pall(stack_t *, int);
-int (*get_op_func(char *))(stack_t *, unsigned int);
+void push(stack_t **, unsigned int);
+void pall(stack_t **, unsigned int);
+int call_op_func (char *, stack_t **, unsigned int);
 int parse(char *);
+void freeAll(stack_t **);
 
 #endif

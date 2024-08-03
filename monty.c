@@ -11,15 +11,15 @@
 int main(int argc, char *argv[])
 {
 	int i, read_return, parse_return;
-	unsigned int line_number = 0;
+	unsigned int line_number = 1;
 	FILE *file;
-	char *buf[256], **tokens = NULL;
-	stack_t *list = NULL;
+	char buf[256];
+	stack_t **head = NULL;
 
 	if (argc == 1 || argc > 2) /* 0 or 1 for no arguments? */
 	{
 		printf("USAGE: monty file\n");
-		/* freeAll */
+		freeAll(head);
 		exit (EXIT_FAILURE);
 	}
 	file = fopen(argv[1], "r");
@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
 	if (file == NULL)
 	{
 		printf("Error: Can't open file %s", argv[1]);
+		fclose(file);
+		freeAll(head);
 		exit (EXIT_FAILURE);
 	}
 
@@ -35,21 +37,29 @@ int main(int argc, char *argv[])
 		tokens = malloc (3 * sizeof(char *)); /* command, int, \n */
 		if (tokens == NULL)
 		{
-			/* freeAll */
+			freeAll(NULL);
 			printf("Error: malloc failed\n");
+			fclose(file);
 			exit(EXIT_FAILURE);
 		}
 		for (i = 0; i < 3; i++) /* prepopulate with NULL*/
 			tokens[i] = NULL;
 
 		parse_return = parse(buf);
-		if (parse_return != 1)
-			printf("didn't parse right, do stuff");
-		get_op_func(tokens[0])(tokens[1], line_number);
+		if (!parse_return) /* consider return errors */
+			printf("didn't parse right, do stuff\n");
+		if (!call_op_func(tokens[0], head, line_number))
+		{
+			printf("L%u: unknown instruction %s", line_number, tokens[0]);
+			freeAll(head);
+			fclose(file);
+			exit(EXIT_FAILURE);
+		}
 		line_number++;
 	}
-	fclose(argv[1]);
-
+	fclose(file);
+	freeAll(head);
+	return (0);
 }
 
 /**
@@ -63,9 +73,6 @@ int parse(char *buf)
 	char *token;
 	int buf_len = 0, token_count = 0;
 
-	if (buf != NULL)
-		buf_len = strlen(buf_len);
-
 	token = strtok(buf, " ");
 	if (token == NULL)
 		return (0); /* no commands - add error message? */
@@ -74,7 +81,7 @@ int parse(char *buf)
 	{
 		if (token_count > 3)
 			return (0); /* add error for too many instructions ? */
-		(*tokens)[token_count] = token;
+		tokens[token_count] = token;
 		token = strtok(NULL, " ");
 		token_count++;
 	}

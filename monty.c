@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-	int i, read_return, parse_return;
+	int i, parse_return;
 	unsigned int line_number = 1;
 	FILE *file;
 	char buf[256];
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 int parse(char *buf)
 {
 	char *token;
-	int buf_len = 0, token_count = 0;
+	int token_count = 0;
 
 	token = strtok(buf, " ");
 	if (token == NULL)

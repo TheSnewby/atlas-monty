@@ -101,6 +101,7 @@ void freeAll(stack_t **head)
 
 	if (tokens != NULL)
 	{
+		(void) temp;
 		for (i = 0; tokens[i] != NULL; i++)
 			free(tokens[i]);
 	}

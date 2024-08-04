@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	stack_t *temp = NULL;
 	stack_t **head = &temp;
 
-	if (argc == 1 || argc > 2) /* 0 or 1 for no arguments? */
+	if (argc != 2) /* 0 or 1 for no arguments? */
 		exitAll(head, NULL, line_number, 0);
 	file = fopen(argv[1], "r");
 
@@ -60,7 +60,7 @@ int parse(char *buf)
 	char *token;
 	int token_count = 0;
 
-	token = strtok(buf, " ");
+	token = strtok(buf, " \n");
 	if (token == NULL)
 		return (0); /* no commands - add error message? */
 
@@ -87,18 +87,17 @@ void freeAll(stack_t **head)
 
 	if (tokens != NULL)
 	{
-		(void) temp;
 		free(tokens);
 		/* for (i = 0; tokens[i] != NULL; i++) */
 		/*	free(tokens[i]); */
 	}
-	while (*head != NULL)
+	while (head != NULL && *head != NULL)
 	{
 		temp = *head;
 		*head = (*head)->next;
 		free(temp);
 	}
-	free(head);
+	/* free(head); */
 }
 
 /**

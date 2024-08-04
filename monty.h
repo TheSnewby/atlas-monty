@@ -17,9 +17,9 @@ extern char **tokens; /* 0: command, 1: val or \n, 2: \n or \0 */
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 /**
  * struct instruction_s - opcode and its function
@@ -31,13 +31,13 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        int (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	int (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 int push(stack_t **, unsigned int);
 int pall(stack_t **, unsigned int);
-int call_op_func (char *, stack_t **, unsigned int);
+int call_op_func(char *, stack_t **, unsigned int);
 int parse(char *);
 void freeAll(stack_t **);
 void exitAll(stack_t **, FILE *, unsigned int, int);

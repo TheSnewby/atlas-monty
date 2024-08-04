@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
 		parse_return = parse(buf);
 		if (!parse_return) /* consider return errors */
-			printf("didn't parse right, do stuff\n");
+			exitAll(head, file, line_number, 3);
 		call_return = call_op_func(tokens[0], head, line_number);
 		if (!call_return)
 			exitAll(head, file, line_number, call_return);
@@ -117,18 +117,20 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				fprintf(stderr, "USAGE: monty file\n");
 				freeAll(head);
 				exit(EXIT_FAILURE);
-				break;
 		case 1:
-				exit(EXIT_FAILURE);
 				freeAll(head);
-				break;
+				exit(EXIT_FAILURE);
 		case 2:
 				fprintf(stderr, "Error: malloc failed\n");
 				freeAll(head);
 				exit(EXIT_FAILURE);
 		case 3:
-				fprintf(stderr, "L%u: unknown instruction %s", line_number,
+				fprintf(stderr, "L%u: unknown instruction %s\n", line_number,
 					tokens[0]);
+				freeAll(head);
+				exit(EXIT_FAILURE);
+		case 4:
+				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				freeAll(head);
 				exit(EXIT_FAILURE);
 	}

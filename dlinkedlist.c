@@ -13,6 +13,8 @@ int push(stack_t **head, unsigned int line_number)
 	stack_t *new_node = NULL;
 	(void) line_number;
 
+	if (atoi(tokens[1]) == 0)
+		return (4);
 	/* check if tokens is correctly shaped */
 
 	if (head == NULL) /* uninitiated */

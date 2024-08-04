@@ -11,14 +11,20 @@ int push(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp = NULL;
 	stack_t *new_node = NULL;
+	(void) line_number;
 
 	/* check if tokens is correctly shaped */
 
 	if (head == NULL) /* uninitiated */
 	{
+		(void) temp;
 		head = (stack_t **)malloc(sizeof(stack_t));
 		if (head == NULL)
 			return (2);
+	}
+	if (*head == NULL)
+	{
+		*head = (stack_t *)malloc(sizeof(stack_t));
 		(*head)->n = atoi(tokens[1]); /* consider atoi check */
 		(*head)->next = NULL;
 		(*head)->prev = NULL;
@@ -54,7 +60,7 @@ int pall(stack_t **head, unsigned int line_number)
 	while (temp != NULL)
 	{
 		printf("%d\n", temp->n);
-		*temp = *temp->next;
+		temp = temp->next;
 	}
 	return (1);
 }

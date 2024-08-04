@@ -15,10 +15,11 @@ int main(int argc, char *argv[])
 	unsigned int line_number = 1;
 	FILE *file;
 	char buf[256];
-	stack_t **head = NULL;
+	stack_t *temp = NULL;
+	stack_t **head = &temp;
 
 	if (argc == 1 || argc > 2) /* 0 or 1 for no arguments? */
-		exitAll(head, file, line_number, 0);
+		exitAll(head, NULL, line_number, 0);
 	file = fopen(argv[1], "r");
 
 	if (file == NULL)
@@ -82,7 +83,7 @@ int parse(char *buf)
 void freeAll(stack_t **head)
 {
 	stack_t *temp = NULL;
-	int i;
+	/* int i; */
 
 	if (tokens != NULL)
 	{
@@ -109,7 +110,8 @@ void freeAll(stack_t **head)
  */
 void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 {
-	fclose(file);
+	if (file != NULL)
+		fclose(file);
 	switch (err_no)
 	{
 		case 0:

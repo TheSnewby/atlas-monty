@@ -41,13 +41,14 @@ int main(int argc, char *argv[])
 		{
 			call_return = call_op_func(tokens[0], head, line_number);
 			if (call_return != 1) /* if didn't return successfully */
-			{
 				exitAll(head, file, line_number, call_return);
-			}
 		}
 		line_number++;
-		freeAll(head);
+		if (tokens != NULL)
+			free(tokens);
+		tokens = NULL;
 	}
+	freeAll(head);
 	fclose(file);
 	return (0);
 }

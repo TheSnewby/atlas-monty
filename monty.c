@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
 	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exitAll(head, file, line_number, 1);
 	}
 

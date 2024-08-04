@@ -18,17 +18,11 @@ int push(stack_t **head, unsigned int line_number)
 	(void) line_number;
 	if (tokens_size != 2)
 		return (4);
-	if (atoi(tokens[1]) == 0) /* not an int, unless coincidentally a 0 */
+	if (strlen(tokens[1]) == 1 && tokens[1][0] == '0')
+		;
+	else if (atoi(tokens[1]) == 0)
 		return (4);
-	/**
-	 * if (head == NULL) uninitiated
-	 * 	{
-	 * 	(void) temp;
-	 *	head = (stack_t **)malloc(sizeof(stack_t));
-	 *	if (head == NULL)
-	 * 	return (2);
-	 *	}
-	*/
+
 	if (*head == NULL)
 	{
 		(void) temp;

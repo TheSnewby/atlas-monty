@@ -5,28 +5,35 @@
  * @head: pointer to head
  * @line_number: value of integer
  *
- * Return: 1 on success, 2 on malloc issue
+ * Return: 1 on success, 2 on malloc issue, 4 on bad push usage
  */
 int push(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp = NULL;
 	stack_t *new_node = NULL;
-	(void) line_number;
+	int tokens_size = 0;
 
+	while (tokens[tokens_size] != NULL)
+		tokens_size++;
+	(void) line_number;
+	if (tokens_size != 2)
+		return (4);
 	if (atoi(tokens[1]) == 0) /* not an int, unless coincidentally a 0 */
 		return (4);
-
-	if (head == NULL) /* uninitiated */
-	{
-		(void) temp;
-		head = (stack_t **)malloc(sizeof(stack_t));
-		if (head == NULL)
-			return (2);
-	}
+	/**
+	 * if (head == NULL) uninitiated
+	 * 	{
+	 * 	(void) temp;
+	 *	head = (stack_t **)malloc(sizeof(stack_t));
+	 *	if (head == NULL)
+	 * 	return (2);
+	 *	}
+	*/
 	if (*head == NULL)
 	{
+		(void) temp;
 		*head = (stack_t *)malloc(sizeof(stack_t));
-		(*head)->n = atoi(tokens[1]); /* consider atoi check */
+		(*head)->n = atoi(tokens[1]);
 		(*head)->next = NULL;
 		(*head)->prev = NULL;
 	}
@@ -82,16 +89,13 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 		{NULL, NULL}
 		};
 
-	int i = -1;
+	int i = 0;
 
-	while (i++ < 3)
+	while (ops[i].opcode != NULL)
 	{
 		if (strcmp(s, ops[i].opcode) == 0)
 			return (ops[i].f(head, line_number));
+		i++;
 	}
-	if (i == 4)
-	{
-		return (3);
-	}
-	return (1);
+	return (3);
 }

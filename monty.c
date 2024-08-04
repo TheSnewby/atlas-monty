@@ -30,17 +30,21 @@ int main(int argc, char *argv[])
 
 	while (fgets(buf, 256, file)) /* reads lines up to \n or 256 chars */
 	{
-		tokens = malloc(3 * sizeof(char *)); /* command, int, \n */
+		tokens = malloc(5 * sizeof(char *)); /* command, int, \n */
 		if (tokens == NULL)
 			exitAll(head, file, line_number, 2);
-		for (i = 0; i < 3; i++) /* prepopulate with NULL*/
+		for (i = 0; i < 5; i++) /* prepopulate with NULL*/
 			tokens[i] = NULL;
 
 		parse_return = parse(buf);
-		(void) parse_return;
-		call_return = call_op_func(tokens[0], head, line_number);
-		if (!call_return)
-			exitAll(head, file, line_number, call_return);
+		if (parse_return != 0) /* if not empty line */
+		{
+			call_return = call_op_func(tokens[0], head, line_number);
+			if (call_return != 1) /* if didn't return successfully */
+			{
+				exitAll(head, file, line_number, call_return);
+			}
+		}
 		line_number++;
 	}
 	fclose(file);
@@ -52,23 +56,25 @@ int main(int argc, char *argv[])
  * parse - parses buffer for commands
  * @buf: buffer up the least of \n or 256 chars
  *
- * Return: 1 if successful, 0 if otherwise
+ * Return: 1 if successful, 0 if empty, -1 if too many
  */
 int parse(char *buf)
 {
 	char *token;
 	int token_count = 0;
 
-	token = strtok(buf, " \n");
+	token = strtok(buf, " \r\t\n");
 	if (token == NULL)
 		return (0); /* no commands - add error message? */
 
 	while (token != NULL) /* store tokens in memory */
 	{
 		if (token_count > 3)
-			return (0); /* add error for too many instructions ? */
+			return (-1); /* add error for too many instructions ? */
+
+		/* printf("token: %s\n", token); debug */
 		tokens[token_count] = token;
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \r\t\n");
 		token_count++;
 	}
 

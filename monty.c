@@ -37,8 +37,7 @@ int main(int argc, char *argv[])
 			tokens[i] = NULL;
 
 		parse_return = parse(buf);
-		if (!parse_return) /* consider return errors */
-			exitAll(head, file, line_number, 3);
+		(void) parse_return;
 		call_return = call_op_func(tokens[0], head, line_number);
 		if (!call_return)
 			exitAll(head, file, line_number, call_return);
@@ -117,7 +116,7 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				fprintf(stderr, "USAGE: monty file\n");
 				freeAll(head);
 				exit(EXIT_FAILURE);
-		case 1:
+		case 1: /* fprintf in main.c to reduce arguments sent to exitAll */
 				freeAll(head);
 				exit(EXIT_FAILURE);
 		case 2:

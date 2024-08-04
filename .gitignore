@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 *.m
+monty
 
 # Object files
 *.o

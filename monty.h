@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-char **tokens = NULL; /* 0: command, 1: val or \n, 2: \n or \0 */
+extern char **tokens; /* 0: command, 1: val or \n, 2: \n or \0 */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -32,13 +32,14 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+        int (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void push(stack_t **, unsigned int);
-void pall(stack_t **, unsigned int);
+int push(stack_t **, unsigned int);
+int pall(stack_t **, unsigned int);
 int call_op_func (char *, stack_t **, unsigned int);
 int parse(char *);
 void freeAll(stack_t **);
+void exitAll(stack_t **, FILE *, unsigned int, int);
 
 #endif

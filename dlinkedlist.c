@@ -1,13 +1,13 @@
 #include "monty.h"
 
 /**
- * stack - adds node at beginning
+ * push - adds node at beginning
  * @head: pointer to head
- * @val: value of integer
+ * @line_number: value of integer
  *
- * Return: pointer to head
+ * Return: 1 on success, 2 on malloc issue
  */
-void push(stack_t **head, unsigned int line_number)
+int push(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp = NULL;
 	stack_t *new_node = NULL;
@@ -18,10 +18,7 @@ void push(stack_t **head, unsigned int line_number)
 	{
 		head = (stack_t **)malloc(sizeof(stack_t));
 		if (head == NULL)
-		{
-			printf("Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
+			return (2);
 		(*head)->n = atoi(tokens[1]); /* consider atoi check */
 		(*head)->next = NULL;
 		(*head)->prev = NULL;
@@ -31,24 +28,23 @@ void push(stack_t **head, unsigned int line_number)
 		temp = *head;
 		new_node = (stack_t *)malloc(sizeof(stack_t));
 		if (new_node == NULL)
-		{
-			printf("Error: malloc failed\n");
-			freeAll(head);
-			exit(EXIT_FAILURE);
-		}
+			return (2);
 		new_node->n = atoi(tokens[1]);
 		new_node->next = *head;
 		new_node->prev = NULL;
 		(*head)->prev = new_node;
 		*head = new_node;
 	}
+	return (1);
 }
 /**
  * pall - prints all items in stack
  * @head: head of stack
  * @line_number: line number from input
+ *
+ * Return: 1 on success
  */
-void pall(stack_t **head, unsigned int line_number)
+int pall(stack_t **head, unsigned int line_number)
 {
 	(void) line_number;
 	stack_t *temp = *head;
@@ -60,15 +56,16 @@ void pall(stack_t **head, unsigned int line_number)
 		printf("%d\n", temp->n);
 		*temp = *temp->next;
 	}
+	return (1);
 }
 
 /**
- * get_op_func - function pointer to a set of functions
+ * call_op_func - function pointer to a set of functions
  * @s: command
  * @head: head of stack
  * @line_number: input line number - used for errors
  *
- * Return: 1 if successful, 0 otherwise 
+ * Return: 1 if successful, 3 if unknown instruction
  */
 int call_op_func(char *s, stack_t **head, unsigned int line_number)
 {
@@ -82,34 +79,12 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 
 	while (i++ < 3)
 	{
-		if (strcmp(s,ops[i].opcode) == 0)
-			ops[i].f(head, line_number);
+		if (strcmp(s, ops[i].opcode) == 0)
+			return (ops[i].f(head, line_number));
 	}
 	if (i == 4)
 	{
-		return (0);
+		return (3);
 	}
 	return (1);
-}
-/**
- * freeAll - frees all dynamically allocated memory
- */
-void freeAll(stack_t **head)
-{
-	stack_t *temp = NULL;
-	int i;
-
-	if (tokens != NULL)
-	{
-		(void) temp;
-		for (i = 0; tokens[i] != NULL; i++)
-			free(tokens[i]);
-	}
-	while (*head != NULL)
-	{
-		temp = *head;
-		*head = (*head)->next;
-		free(temp);
-	}
-	free(head);
 }

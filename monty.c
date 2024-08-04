@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
 			}
 		}
 		line_number++;
+		freeAll(head);
 	}
 	fclose(file);
-	freeAll(head);
 	return (0);
 }
 
@@ -92,9 +92,9 @@ void freeAll(stack_t **head)
 
 	if (tokens != NULL)
 	{
-		free(tokens);
 		/* for (i = 0; tokens[i] != NULL; i++) */
 		/*	free(tokens[i]); */
+		free(tokens);
 	}
 	while (head != NULL && *head != NULL)
 	{

@@ -18,13 +18,20 @@ int push(stack_t **head, unsigned int line_number)
 		tokens_size++;
 	(void) line_number;
 	if (tokens_size < 2)
+	{
+		printf("a");
 		return (4);
+	}
 	while (tokens[i] != NULL)
 	{
 		if (strlen(tokens[i]) == 1 && tokens[i][0] == '0') /* handles "0" */
 			;
 		else if (isNum(tokens[i]) == 0)
+		{
+			printf("b");
 			return (4);
+		}
+		
 
 		if (*head == NULL)
 		{
@@ -61,8 +68,6 @@ int pall(stack_t **head, unsigned int line_number)
 {
 	(void) line_number;
 	stack_t *temp = *head;
-
-	/* check if pall is correctly shaped */
 
 	while (temp != NULL)
 	{

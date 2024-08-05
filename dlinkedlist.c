@@ -20,7 +20,7 @@ int push(stack_t **head, unsigned int line_number)
 		return (4);
 	if (strlen(tokens[1]) == 1 && tokens[1][0] == '0')
 		;
-	else if (atoi(tokens[1]) == 0)
+	else if (isNum(tokens[1]) == 0) /* CHANGE TO ISNUM & FIXX ISNUM */
 		return (4);
 
 	if (*head == NULL)

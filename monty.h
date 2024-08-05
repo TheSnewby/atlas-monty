@@ -41,5 +41,6 @@ int call_op_func(char *, stack_t **, unsigned int);
 int parse(char *);
 void freeAll(stack_t **);
 void exitAll(stack_t **, FILE *, unsigned int, int);
+int isNum(char *);
 
 #endif

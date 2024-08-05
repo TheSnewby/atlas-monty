@@ -24,3 +24,36 @@ int isNum(char *c)
 	}
 	return (1);
 }
+
+/**
+ * swap - swaps the top two elements of the stack
+ * @head: head of the list
+ * @line_number: number of input line
+ *
+ * Return: 1 if successful, 2 if malloc error, 7 if can't swap
+ */
+int swap(stack_t **head, unsigned int line_number)
+{
+	(void) line_number;
+	stack_t *temp = NULL, *swap = NULL;
+
+	if (*head != NULL && (*head)->next != NULL)
+	{ /* old head stored in swap, free head, then place swap after new head */
+		temp = *head;
+		swap = (stack_t *)malloc(sizeof(stack_t *));
+		if (swap == NULL)
+			return (2);
+		swap->n = (*head)->n;
+		swap->prev = (*head)->next;
+		swap->prev = (*head)->next->next;
+
+		*head = (*head)->next;
+		free(temp);
+		temp = NULL;
+		(*head)->prev = NULL;
+		(*head)->next = swap;
+	}
+	else
+		return (7);
+	return (1);
+}

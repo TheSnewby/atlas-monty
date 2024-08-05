@@ -144,5 +144,10 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 				freeAll(head);
 				exit(EXIT_FAILURE);
+		case 7:
+				fprintf(stderr, "L%u: can't swap, stack too short\n",
+					line_number);
+				freeAll(head);
+				exit(EXIT_FAILURE);
 	}
 }

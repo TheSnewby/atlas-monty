@@ -5,7 +5,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-extern char **tokens; /* 0: command, 1: val or \n, 2: \n or \0 */
+/**
+ * tokens - tokenized inputs from input lines
+ * Description: global variable to store inputs parsed from files line by line.
+ */
+extern char **tokens;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer

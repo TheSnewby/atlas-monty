@@ -99,7 +99,7 @@ void freeAll(stack_t **head)
 }
 
 /**
- * exitAll - handles all exit calls
+ * exitAll - handles all exit and error calls
  * @head: head of list
  * @file: file pointer
  * @line_number: line number of error
@@ -113,41 +113,33 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 	{
 		case 0:
 				fprintf(stderr, "USAGE: monty file\n");
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 1: /* fprintf in main.c to reduce arguments sent to exitAll */
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 2:
 				fprintf(stderr, "Error: malloc failed\n");
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 3:
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number,
 					tokens[0]);
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 4:
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 5:
 				fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 6:
 				fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 7:
 				fprintf(stderr, "L%u: can't swap, stack too short\n",
 					line_number);
-				freeAll(head);
-				exit(EXIT_FAILURE);
+				break;
 		case 8:
 				fprintf(stderr, "L%u: can't add, stack too short\n",
 					line_number);
-				freeAll(head);
-				exit(EXIT_FAILURE);
-	}
+				break;
+	freeAll(head);
+	exit(EXIT_FAILURE);
 }

@@ -75,7 +75,7 @@ int add(stack_t **head, unsigned int line_number)
 }
 
 /**
- * nop - does nothing 
+ * nop - does nothing
  * @head: head of list
  * @line_number: number of input line
  *

@@ -13,7 +13,7 @@ int isNum(char *c)
 	if (c == NULL)
 		return (1);
 
-	for(i = 0; c[i] != '\0'; i++)
+	for (i = 0; c[i] != '\0'; i++)
 	{
 		if (i == 0 && c[i] == '-')
 			;

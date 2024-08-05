@@ -17,8 +17,8 @@ int push(stack_t **head, unsigned int line_number)
 	while (tokens[tokens_size] != NULL)
 		tokens_size++;
 	(void) line_number;
-	if (tokens_size < 2)
-		return (4);
+	/* if (tokens_size < 2) */
+	/*	return (4); */
 	while (tokens[i] != NULL)
 	{
 		if (strlen(tokens[i]) == 1 && tokens[i][0] == '0') /* handles "0" */

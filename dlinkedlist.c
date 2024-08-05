@@ -83,6 +83,7 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 	instruction_t ops[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 		};
 
@@ -95,4 +96,21 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 		i++;
 	}
 	return (3);
+}
+
+/**
+ * pint - prints the value at the top of the stack and \n
+ * @head: head of list
+ *
+ * Return: 1 if success, 5 if pint error
+ */
+int pint(stack_t **head, unsigned int line_number)
+{
+	(void) line_number;
+	if (head == NULL)
+		return (5);
+	if (*head == NULL)
+		return (5);
+	printf("%d\n", (*head)->n);
+	return (1);
 }

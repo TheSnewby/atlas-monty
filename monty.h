@@ -42,5 +42,6 @@ int parse(char *);
 void freeAll(stack_t **);
 void exitAll(stack_t **, FILE *, unsigned int, int);
 int isNum(char *);
+int pint(stack_t **, unsigned int);
 
 #endif

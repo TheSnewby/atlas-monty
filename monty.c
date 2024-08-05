@@ -136,5 +136,9 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				freeAll(head);
 				exit(EXIT_FAILURE);
+		case 5:
+				fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+				freeAll(head);
+				exit(EXIT_FAILURE);
 	}
 }

@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
 
 	while (fgets(buf, 256, file)) /* reads lines up to \n or 256 chars */
 	{
-		tokens = malloc(5 * sizeof(char *)); /* command, int, \n */
+		tokens = malloc(10 * sizeof(char *)); /* command, int, \n */
 		if (tokens == NULL)
 			exitAll(head, file, line_number, 2);
-		for (i = 0; i < 5; i++) /* prepopulate with NULL*/
+		for (i = 0; i < 10; i++) /* prepopulate with NULL*/
 			tokens[i] = NULL;
 
 		parse_return = parse(buf);
@@ -70,9 +70,6 @@ int parse(char *buf)
 
 	while (token != NULL) /* store tokens in memory */
 	{
-		if (token_count > 3)
-			return (-1); /* add error for too many instructions ? */
-
 		/* printf("token: %s\n", token); debug */
 		tokens[token_count] = token;
 		token = strtok(NULL, " \r\t\n");

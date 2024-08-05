@@ -47,3 +47,40 @@ int swap(stack_t **head, unsigned int line_number)
 		return (7);
 	return (1);
 }
+
+/**
+ * add - adds the top two elements of the stack, stores in 2nd, removes 1st
+ * @head: head of list
+ * @line_number: number of input line
+ *
+ * Return: 1 if successful, 8 if can't add
+ */
+int add(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp = NULL;
+
+	if (*head != NULL && (*head)->next != NULL)
+	{
+		(*head)->next->n = (*head)->n + (*head)->next->n;
+		temp = *head;
+		*head = (*head)->next;
+		(*head)->prev = NULL;
+		free(temp);
+		temp = NULL;
+	}
+	else
+		return (8);
+	return (1);
+}
+
+/**
+ * nop - does nothing 
+ * @head: head of list
+ * @line_number: number of input line
+ *
+ * Return: 1 always
+ */
+int nop(stack_t **head, unsigned int line_number)
+{
+	return (1);
+}

@@ -86,6 +86,8 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
 		{NULL, NULL}
 		};
 

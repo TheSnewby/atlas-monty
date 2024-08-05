@@ -86,14 +86,9 @@ int parse(char *buf)
 void freeAll(stack_t **head)
 {
 	stack_t *temp = NULL;
-	/* int i; */
 
 	if (tokens != NULL)
-	{
-		/* for (i = 0; tokens[i] != NULL; i++) */
-		/*	free(tokens[i]); */
 		free(tokens);
-	}
 	while (head != NULL && *head != NULL)
 	{
 		temp = *head;
@@ -146,6 +141,11 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				exit(EXIT_FAILURE);
 		case 7:
 				fprintf(stderr, "L%u: can't swap, stack too short\n",
+					line_number);
+				freeAll(head);
+				exit(EXIT_FAILURE);
+		case 8:
+				fprintf(stderr, "L%u: can't add, stack too short\n",
 					line_number);
 				freeAll(head);
 				exit(EXIT_FAILURE);

@@ -45,5 +45,7 @@ int isNum(char *);
 int pint(stack_t **, unsigned int);
 int pop(stack_t **, unsigned int);
 int swap(stack_t **, unsigned int);
+int add(stack_t **, unsigned int);
+int nop(stack_t **, unsigned int);
 
 #endif

@@ -121,6 +121,8 @@ int pint(stack_t **head, unsigned int line_number)
  * pop - removes the top element of the stack
  * @head: head of list
  * @line_number: number of line executed from input file
+ *
+ * Return: 1 if successful, 6 if error
  */
 int pop(stack_t **head, unsigned int line_number)
 {
@@ -139,6 +141,7 @@ int pop(stack_t **head, unsigned int line_number)
 		else /* if only 1 node */
 		{
 			free(*head);
+			*head = NULL;
 		}
 	}
 	else

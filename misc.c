@@ -57,6 +57,7 @@ int swap(stack_t **head, unsigned int line_number)
  */
 int add(stack_t **head, unsigned int line_number)
 {
+	(void) line_number;
 	stack_t *temp = NULL;
 
 	if (*head != NULL && (*head)->next != NULL)
@@ -82,5 +83,7 @@ int add(stack_t **head, unsigned int line_number)
  */
 int nop(stack_t **head, unsigned int line_number)
 {
+	(void) head;
+	(void) line_number;
 	return (1);
 }

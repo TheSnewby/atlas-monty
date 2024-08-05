@@ -84,6 +84,7 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL}
 		};
 
@@ -101,6 +102,7 @@ int call_op_func(char *s, stack_t **head, unsigned int line_number)
 /**
  * pint - prints the value at the top of the stack and \n
  * @head: head of list
+ * @line_number: number of line executed from input file
  *
  * Return: 1 if success, 5 if pint error
  */
@@ -112,5 +114,34 @@ int pint(stack_t **head, unsigned int line_number)
 	if (*head == NULL)
 		return (5);
 	printf("%d\n", (*head)->n);
+	return (1);
+}
+
+/**
+ * pop - removes the top element of the stack
+ * @head: head of list
+ * @line_number: number of line executed from input file
+ */
+int pop(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp = NULL;
+	(void) line_number;
+
+	if (*head != NULL)
+	{
+		temp = *head;
+		if ((*head)->next != NULL) /* if more than 1 node */
+		{
+			*head = (*head)->next;
+			(*head)->prev = NULL;
+			free(temp);
+		}
+		else /* if only 1 node */
+		{
+			free(*head);
+		}
+	}
+	else
+		return (6);
 	return (1);
 }

@@ -8,7 +8,7 @@
  *
  * Return: EXIT_SUCCESS on success, EXIT_FAILURE otherwise
  */
-/* char **tokens_t; */
+char **tokens_t;
 
 int main(int argc, char *argv[])
 {

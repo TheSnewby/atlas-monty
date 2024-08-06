@@ -35,11 +35,7 @@ typedef struct instruction_s
 	int (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-#ifdef DEFINE_VARIABLES
-char **tokens_t;
-#else
 extern char **tokens_t;
-#endif
 
 int push(stack_t **, unsigned int);
 int pall(stack_t **, unsigned int);

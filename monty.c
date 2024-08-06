@@ -140,6 +140,7 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				fprintf(stderr, "L%u: can't add, stack too short\n",
 					line_number);
 				break;
+	}
 	freeAll(head);
 	exit(EXIT_FAILURE);
 }

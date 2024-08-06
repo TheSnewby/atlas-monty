@@ -5,10 +5,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-/**
- * tokens - tokenized inputs from input lines
- * Description: global variable to store inputs parsed from files line by line.
- */
+
 extern char **tokens;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)

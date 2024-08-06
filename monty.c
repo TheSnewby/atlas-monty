@@ -7,7 +7,7 @@
  *
  * Return: EXIT_SUCCESS on success, EXIT_FAILURE otherwise
  */
-char **tokens;
+char **tokens_t;
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	stack_t *temp = NULL;
 	stack_t **head = &temp;
 
-	tokens = NULL;
+	tokens_t = NULL;
 	if (argc != 2) /* 0 or 1 for no arguments? */
 		exitAll(head, NULL, line_number, 0);
 	file = fopen(argv[1], "r");
@@ -30,23 +30,23 @@ int main(int argc, char *argv[])
 	}
 	while (fgets(buf, 256, file)) /* reads lines up to \n or 256 chars */
 	{
-		tokens = malloc(10 * sizeof(char *)); /* command, int, \n */
-		if (tokens == NULL)
+		tokens_t = malloc(10 * sizeof(char *)); /* command, int, \n */
+		if (tokens_t == NULL)
 			exitAll(head, file, line_number, 2);
 		for (i = 0; i < 10; i++) /* prepopulate with NULL*/
-			tokens[i] = NULL;
+			tokens_t[i] = NULL;
 
 		parse_return = parse(buf);
 		if (parse_return != 0) /* if not empty line */
 		{
-			call_return = call_op_func(tokens[0], head, line_number);
+			call_return = call_op_func(tokens_t[0], head, line_number);
 			if (call_return != 1) /* if didn't return successfully */
 				exitAll(head, file, line_number, call_return);
 		}
 		line_number++;
-		if (tokens != NULL)
-			free(tokens);
-		tokens = NULL;
+		if (tokens_t != NULL)
+			free(tokens_t);
+		tokens_t = NULL;
 	}
 	freeAll(head);
 	fclose(file);
@@ -68,10 +68,10 @@ int parse(char *buf)
 	if (token == NULL)
 		return (0); /* no commands - add error message? */
 
-	while (token != NULL) /* store tokens in memory */
+	while (token != NULL) /* store tokens_t in memory */
 	{
 		/* printf("token: %s\n", token); debug */
-		tokens[token_count] = token;
+		tokens_t[token_count] = token;
 		token = strtok(NULL, " \r\t\n");
 		token_count++;
 	}
@@ -87,8 +87,8 @@ void freeAll(stack_t **head)
 {
 	stack_t *temp = NULL;
 
-	if (tokens != NULL)
-		free(tokens);
+	if (tokens_t != NULL)
+		free(tokens_t);
 	while (head != NULL && *head != NULL)
 	{
 		temp = *head;
@@ -121,7 +121,7 @@ void exitAll(stack_t **head, FILE *file, unsigned int line_number, int err_no)
 				break;
 		case 3:
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number,
-					tokens[0]);
+					tokens_t[0]);
 				break;
 		case 4:
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);

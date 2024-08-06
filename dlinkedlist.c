@@ -11,26 +11,26 @@ int push(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp = NULL;
 	stack_t *new_node = NULL;
-	int tokens_size = 0;
+	int tokens_t_size = 0;
 	int i = 1;
 
-	while (tokens[tokens_size] != NULL)
-		tokens_size++;
+	while (tokens_t[tokens_t_size] != NULL)
+		tokens_t_size++;
 	(void) line_number;
-	if (tokens_size < 2)
+	if (tokens_t_size < 2)
 		return (4);
-	while (tokens[i] != NULL && i < 2)
+	while (tokens_t[i] != NULL && i < 2)
 	{
-		if (strlen(tokens[i]) == 1 && tokens[i][0] == '0') /* handles "0" */
+		if (strlen(tokens_t[i]) == 1 && tokens_t[i][0] == '0') /* handles "0" */
 			;
-		else if (isNum(tokens[i]) == 0)
+		else if (isNum(tokens_t[i]) == 0)
 			return (4);
 
 		if (*head == NULL)
 		{
 			(void) temp;
 			*head = (stack_t *)malloc(sizeof(stack_t));
-			(*head)->n = atoi(tokens[i]);
+			(*head)->n = atoi(tokens_t[i]);
 			(*head)->next = NULL;
 			(*head)->prev = NULL;
 		}
@@ -40,7 +40,7 @@ int push(stack_t **head, unsigned int line_number)
 			new_node = (stack_t *)malloc(sizeof(stack_t));
 			if (new_node == NULL)
 				return (2);
-			new_node->n = atoi(tokens[i]);
+			new_node->n = atoi(tokens_t[i]);
 			new_node->next = *head;
 			new_node->prev = NULL;
 			(*head)->prev = new_node;

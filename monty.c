@@ -1,5 +1,5 @@
-#define DEFINE_VARIABLES
 #include "monty.h"
+char **tokens_t;
 
 /**
  * main - starts the monty interpreter
@@ -8,8 +8,6 @@
  *
  * Return: EXIT_SUCCESS on success, EXIT_FAILURE otherwise
  */
-char **tokens_t;
-
 int main(int argc, char *argv[])
 {
 	int i, parse_return, call_return;

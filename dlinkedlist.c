@@ -3,7 +3,7 @@
 /**
  * push - adds node at beginning
  * @head: pointer to head
- * @line_number: value of integer
+ * @line_number: value of  integer
  *
  * Return: 1 on success, 2 on malloc issue, 4 on bad push usage
  */

@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
 	char buf[256];
 	stack_t *temp = NULL;
 	stack_t **head = &temp;
-	tokens = NULL;
 
+	tokens = NULL;
 	if (argc != 2) /* 0 or 1 for no arguments? */
 		exitAll(head, NULL, line_number, 0);
 	file = fopen(argv[1], "r");
@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exitAll(head, file, line_number, 1);
 	}
-
 	while (fgets(buf, 256, file)) /* reads lines up to \n or 256 chars */
 	{
 		tokens = malloc(10 * sizeof(char *)); /* command, int, \n */

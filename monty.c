@@ -7,7 +7,7 @@
  *
  * Return: EXIT_SUCCESS on success, EXIT_FAILURE otherwise
  */
-char **tokens = NULL;
+char **tokens;
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 	char buf[256];
 	stack_t *temp = NULL;
 	stack_t **head = &temp;
+	tokens = NULL;
 
 	if (argc != 2) /* 0 or 1 for no arguments? */
 		exitAll(head, NULL, line_number, 0);
